@@ -23,6 +23,7 @@ jobs:
             - { model: "tuf-ax3000_v2", sdk: "src-rt-5.04axhnd.675x", ui: "default",  skip: false }
             - { model: "tuf-ax3000_v2", sdk: "src-rt-5.04axhnd.675x", ui: "tuf",      skip: false }
             - { model: "rt-ax58u_v2",   sdk: "src-rt-5.04axhnd.675x", ui: "default",  skip: false }
+            - { model: "xt8_v2",        sdk: "src-rt-5.04axhnd.675x", ui: "default",  skip: false }
       container:
         image: gnuton/asuswrt-merlin-toolchains-docker:latest
         env:
@@ -65,6 +66,12 @@ jobs:
               echo "PR detected - using fork repository: $GIT_REPO"
               echo "Fetching code from branch $BRANCH"
             else
+              # Fork smoke-test tweak: on a plain branch/tag push, clone from the
+              # repository the workflow is running in ($GITHUB_REPOSITORY). On a
+              # fork this is the fork itself; on gnuton/asuswrt-merlin.ng it
+              # resolves right back to origin, so this is safe either way.
+              export GIT_REPO="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
+              echo "Push detected - using running repository: $GIT_REPO"
               if [[ $GITHUB_REF_TYPE == "tag" ]]; then
                 export TAG="${GITHUB_REF#refs/tags/}"
                 echo "Fetching code from tag $TAG"

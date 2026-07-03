@@ -7020,12 +7020,12 @@ void generate_wl_para(char *ifname, int unit, int subunit)
 void
 set_wan_tag(char *interface) {
 	int model, wan_vid, iptv_vid, voip_vid, iptv_prio, voip_prio, switch_stb;
-	char wan_dev[sizeof("vlan4096")], port_id[7];
+	char wan_dev[20], port_id[7];
 	char tag_register[sizeof("0xffffffff")], vlan_entry[sizeof("0xffffffff")];
 	int gmac3_enable = 0;
 #ifdef HND_ROUTER
 	char wan_if[10], ethPort1[10], ethPort2[10], ethPort3[10], ethPort4[10];
-	char wanVlanDev[10], vlanDev1[10], vlanDev2[10], vlanDev3[10], vlanDev4[10];
+	char wanVlanDev[20], vlanDev1[20], vlanDev2[20], vlanDev3[20], vlanDev4[20];
 	char wanVlanDev1[10];
 	char br_dev[sizeof("br101")];
 #endif
@@ -11247,7 +11247,7 @@ void dump_exclchans(unsigned int *excs, char *des) {
 int reset_exclbase(int ifnum)
 {
 	int i;
-	char chans[32], chans_base[32];
+	char chans[48], chans_base[48];
 
 	if(nvram_get_int("re_mode") == 1)
 		return 1;
@@ -11274,7 +11274,7 @@ int reset_exclbase(int ifnum)
 int reset_exclvalid()
 {
 	int i, ifnum=0, acs_valid=0;
-	char exchans[32], exchans_valid[32], wl_tmp[32];
+	char exchans[48], exchans_valid[48], wl_tmp[32];
 	char word[256], *next;
 
 	if(nvram_get_int("re_mode") == 1)

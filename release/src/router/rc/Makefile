@@ -1031,6 +1031,7 @@ endif
 
 ifeq ($(RTCONFIG_IG_SITE2SITE),y)
 OBJS += ig_s2s_client.o
+
 endif
 
 all: PB rc $(if $(RTCONFIG_BRCM_HOSTAPD), $(WPS_PBCD)) init.prep
